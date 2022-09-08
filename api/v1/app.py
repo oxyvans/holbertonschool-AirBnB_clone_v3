@@ -20,9 +20,6 @@ def page_not_found(e):
     return ({"error": "Not found"}), 404
 
 
-# app.register_error_handler(404, page_not_found)
-
-
 if __name__ == "__main__":
     host = "0.0.0.0"
     port = 5000
