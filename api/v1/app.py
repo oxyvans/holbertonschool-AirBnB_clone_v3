@@ -15,6 +15,11 @@ def storage_close(app):
     storage.close()
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return ({"error": "Not found"})
+
+
 if __name__ == "__main__":
     host = "0.0.0.0"
     port = 5000
