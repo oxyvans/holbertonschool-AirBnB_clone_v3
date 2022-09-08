@@ -71,7 +71,7 @@ class FileStorage:
 
     def get(self, cls, id):
         """ fun get """
-        if (id is None) or (cls is None)):
+        if (id is None) or (cls is None):
             return None
         k = "{}.{}".format(cls.__name__, id)
         return (self.__objects[k])

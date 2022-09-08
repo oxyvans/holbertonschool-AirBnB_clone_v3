@@ -77,7 +77,7 @@ class DBStorage:
 
     def get(self, cls, id):
         """ fun get """
-        if (id is None) or (cls is None)):
+        if (id is None) or (cls is None):
             return None
         return self.__session.querry(cls).get(id)
 
