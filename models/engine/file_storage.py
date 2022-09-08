@@ -71,13 +71,11 @@ class FileStorage:
 
     def get(self, cls, id):
         """ fun get """
-        if (id is None) or (cls is None) or (cls not in classes.values()):
+        if (id is None) or (cls is None)):
             return None
         k = "{}.{}".format(cls.__name__, id)
         return (self.__objects[k])
 
     def count(self, cls=None):
         """ funt count """
-        if (cls not in classes.values()):
-            return len(self.all())
         return len(self.all(cls))

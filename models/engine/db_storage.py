@@ -77,12 +77,10 @@ class DBStorage:
 
     def get(self, cls, id):
         """ fun get """
-        if (id is None) or (cls is None) or (cls not in classes.values()):
+        if (id is None) or (cls is None)):
             return None
         return self.__session.querry(cls).get(id)
 
     def count(self, cls=None):
         """ funt count """
-        if (cls not in classes.values()):
-            return len(self.all())
         return len(self.all(cls))
