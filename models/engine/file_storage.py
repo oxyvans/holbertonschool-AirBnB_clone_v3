@@ -74,7 +74,11 @@ class FileStorage:
         if (id is None) or (cls is None):
             return None
         k = "{}.{}".format(cls.__name__, id)
-        return (self.__objects[k])
+        try:
+            res = self.__objects[k]
+            return res
+        except Exception:
+            return None
 
     def count(self, cls=None):
         """ funt count """
