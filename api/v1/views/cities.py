@@ -17,7 +17,7 @@ def cities_state_id(state_id):
         for k, v in storage.all(City).items():
             v = v.to_dict()
             if v["state_id"] == state_id:
-               cities_list.append(v)
+                cities_list.append(v)
         return cities_list
 
     if request.method == 'POST':
