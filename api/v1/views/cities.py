@@ -17,7 +17,7 @@ def cities_state_id(state_id):
         for k, v in storage.all(City).items():
             v = v.to_dict()
             if v["state_id"] == state_id:
-                cities_list.append(v)
+               cities_list.append(v)
         return cities_list
 
     if request.method == 'POST':
@@ -40,14 +40,12 @@ def cities_city_id(city_id):
         obj = storage.get(City, city_id)
         if obj is None:
             abort(404)
-
         return obj.to_dict()
 
     if request.method == 'DELETE':
         obj = storage.get(City, city_id)
         if obj is None:
             abort(404)
-
         storage.delete(obj)
         storage.save()
         return {}, 200
