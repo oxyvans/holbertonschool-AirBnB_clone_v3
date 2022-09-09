@@ -11,7 +11,7 @@ from models.state import State
                  strict_slashes=False)
 def cities_state_id(state_id):
     if request.method == 'GET':
-        if storage.get(State, state_id) is None:
+        if not storage.get(State, state_id):
             abort(404)
         cities_list = []
         for k, v in storage.all(City).items():
@@ -21,12 +21,12 @@ def cities_state_id(state_id):
         return jsonify(cities_list)
 
     if request.method == 'POST':
-        if storage.get(State, state_id) is None:
-            abort(404)
         if not request.get_json():
             abort(400, 'Not a JSON')
+        if storage.get(State, state_id) is None:
+            abort(404)
         data = request.get_json()
-        if 'name' not in data.keys():
+        if 'name' not in data:
             abort(400, 'Missing name')
         data.update({'state_id': state_id})
         new_city = City(**data)
@@ -39,26 +39,27 @@ def cities_state_id(state_id):
 def cities_city_id(city_id):
     if request.method == 'GET':
         obj = storage.get(City, city_id)
-        if obj is None:
-            abort(404)
-        return jsonify(obj.to_dict())
+        if obj:
+            return jsonify(obj.to_dict())
+        abort(404)
 
     if request.method == 'DELETE':
         obj = storage.get(City, city_id)
-        if obj is None:
+        if not obj:
             abort(404)
         storage.delete(obj)
         storage.save()
         return make_response(jsonify({}), 200)
 
     if request.method == 'PUT':
-        city = storage.get(City, city_id)
-        if city is None:
-            abort(404)
         if not request.get_json():
             abort(400, 'Not a JSON')
+        city = storage.get(City, city_id)
+        if not city:
+            abort(404)
         ignored_data = ['id', 'state_id', 'created_at', 'updated_at']
-        for k, v in request.get_json().items():
+        info = request.get_json()
+        for k, v in info.items():
             if k not in ignored_data:
                 setattr(city, k, v)
         city.save()
