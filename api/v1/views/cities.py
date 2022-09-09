@@ -40,7 +40,7 @@ def cities_city_id(city_id):
         obj = storage.get(City, city_id)
         if obj is None:
             abort(404)
-        return obj.to_dict()
+        return jsonify(obj.to_dict())x
 
     if request.method == 'DELETE':
         obj = storage.get(City, city_id)
