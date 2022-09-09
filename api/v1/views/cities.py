@@ -11,13 +11,13 @@ from models.state import State
 @app_views.route('/states/<state_id>/cities', methods=('GET', 'POST'))
 def cities_state_id(state_id):
     if request.method == 'GET':
+        if storage.get(State, state_id) is None:
+            abort(404)
         cities_list = []
         for k, v in storage.all(City).items():
             v = v.to_dict()
             if v["state_id"] == state_id:
                 cities_list.append(v)
-        if cities_list == []:
-            abort(404)
         return cities_list
 
     if request.method == 'POST':
