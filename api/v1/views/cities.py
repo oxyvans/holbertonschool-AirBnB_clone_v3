@@ -35,7 +35,7 @@ def cities_state_id(state_id):
 
 
 @app_views.route('/cities/<city_id>', methods=('GET', 'DELETE', 'PUT'),
-                 strict_slashes=False))
+                 strict_slashes=False)
 def cities_city_id(city_id):
     if request.method == 'GET':
         obj = storage.get(City, city_id)
