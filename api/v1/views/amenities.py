@@ -28,7 +28,7 @@ def amen_by_id(amenity_id):
 
 
 @app_views.route('/amenities/<amenity_id>',
-                 methods=['GET'], strict_slashes=False)
+                 methods=['DELETE'], strict_slashes=False)
 def deletear_a(amenity_id):
     """ deletes """
     a = storage.get(Amenity, amenity_id)
