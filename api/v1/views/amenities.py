@@ -52,7 +52,7 @@ def create_a():
 
 
 @app_views.route('/amenities/<amenity_id>',
-                 methods=['GET'], strict_slashes=False)
+                 methods=['PUT'], strict_slashes=False)
 def update_a(amenity_id):
     """ updates """
     if not request.get_json():
