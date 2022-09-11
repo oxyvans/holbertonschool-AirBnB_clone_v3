@@ -74,3 +74,43 @@ def update_place(place_id):
             setattr(place, k, v)
     place.save()
     return make_response(jsonify(place.to_dict()), 200)
+
+
+@app_views.route('/places_search', methods=['POST'], strict_slashes=False)
+def search_places():
+    data = request.get_json()
+    if not data:
+        abort(400, 'Not a JSON')
+    states, cities, amenities = [], [], []
+    if 'states' in data.keys():
+        states = data['states']
+    if 'cities' in data.keys():
+        cities = data['cities']
+    if 'amenities' in data.keys():
+        amenities = data['amenities']
+    if 'user_id' not in data:
+        abort(400, 'Missing user_id')
+    cities_list = []
+    if cities == [] and states == []:
+        for k, v in storage.all(City).items():
+            cities_list.append(v.to_dict())
+    for state in states:
+        for k, v in storage.all(City).items():
+            v = v.to_dict()
+            if v["state_id"] == state_id:
+                cities_list.append(v)
+    for city in cities:
+        obj = storage.get(City, city_id)
+        if obj and obj.to_dict() not in cities_list:
+            cities_list.append(obj.to_dict())
+    places_list = []
+    for city in cities_list:
+        for k, v in storage.all(Place).items():
+            v = v.to_dict()
+            if (v["city_id"] == city['id']) and
+            (v['state_id'] == city['state_id']):
+                for i in amenities:
+                    if i not in v['amenities']:
+                        continue
+                places_list.append(v)
+    return jsonify(places_list)
