@@ -88,8 +88,6 @@ def search_places():
         cities = data['cities']
     if 'amenities' in data.keys():
         amenities = data['amenities']
-    if 'user_id' not in data:
-        abort(400, 'Missing user_id')
     cities_list = []
     if cities == [] and states == []:
         for k, v in storage.all(City).items():
@@ -104,11 +102,10 @@ def search_places():
         if obj and obj.to_dict() not in cities_list:
             cities_list.append(obj.to_dict())
     places_list = []
-    for city in cities_list:
+    for cty in cities_list:
         for k, v in storage.all(Place).items():
             v = v.to_dict()
-            if (v["city_id"] == city['id']) and
-            (v['state_id'] == city['state_id']):
+            if v["city_id"] == cty['id'] and v['state_id'] == cty['state_id']:
                 for i in amenities:
                     if i not in v['amenities']:
                         continue
