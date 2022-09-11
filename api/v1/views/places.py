@@ -95,7 +95,7 @@ def search_places():
     cities_list = []
     if cities == [] and states == []:
         for k, v in storage.all(City).items():
-            cities_list += v
+            cities_list.append(v)
 
     for state_id in states:
         obj = storage.get(State, state_id)
@@ -105,7 +105,7 @@ def search_places():
     for city_id in cities:
         obj = storage.get(City, city_id)
         if obj and obj not in cities_list:
-            cities_list += obj
+            cities_list.append(obj)
 
     places_list = []
     for city in cities_list:
@@ -115,7 +115,7 @@ def search_places():
     for amenity_id in amenities:
         obj = storage.get(Amenity, amenity_id)
         if obj:
-            amenity_list += obj
+            amenity_list.append(obj)
     if amenities_list == []:
         for place in places_list:
             res += place.to_dict()
