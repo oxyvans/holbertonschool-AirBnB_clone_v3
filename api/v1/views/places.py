@@ -95,34 +95,34 @@ def search_places():
     cities_list = []
     if cities == [] and states == []:
         for k, v in storage.all(City).items():
-            cities_list.append(v)
+            cities_list += v
 
     for state_id in states:
         obj = storage.get(State, state_id)
         if obj:
-            cities_list.append(obj)
+            cities_list += obj.cities
 
     for city_id in cities:
         obj = storage.get(City, city_id)
         if obj and obj not in cities_list:
-            cities_list.append(obj)
+            cities_list += obj
 
     places_list = []
     for city in cities_list:
-        places_list.append(city.places)
+        places_list += city.places
 
     amenities_list, res = [], []
     for amenity_id in amenities:
         obj = storage.get(Amenity, amenity_id)
         if obj:
-            amenity_list.append(obj)
+            amenity_list += obj
     if amenities_list == []:
         for place in places_list:
-            res.append(place.to_dict())
+            res += place.to_dict()
 
     else:
         for place in places_list:
             if all(amenity in place.amenities for amenity in amenities_list):
-                res.append(place.to_dict())
+                res += place.to_dict()
 
     return jsonify(res)
