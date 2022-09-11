@@ -120,8 +120,9 @@ def search_places():
         for place in places_list:
             res.append(place.to_dict())
 
-    for place in places_list:
-        if all(amenity in place.amenities for amenity in amenities_list):
-            res.append(place.to_dict())
+    else:
+        for place in places_list:
+            if all(amenity in place.amenities for amenity in amenities_list):
+                res.append(place.to_dict())
 
     return jsonify(res)
