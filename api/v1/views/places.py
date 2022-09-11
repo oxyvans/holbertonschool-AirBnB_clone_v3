@@ -101,6 +101,8 @@ def search_places():
         obj = storage.get(City, city_id)
         if obj and obj.to_dict() not in cities_list:
             cities_list.append(obj.to_dict())
+    if amenities == []:
+        return jsonify(cities_list)
     places_list = []
     for cty in cities_list:
         for k, v in storage.all(Place).items():
