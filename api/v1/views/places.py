@@ -107,6 +107,7 @@ def search_places():
         if obj and obj not in cities_list:
             cities_list.append(obj)
 
+    places_list = []
     for city in cities_list:
         places_list.append(city.places)
 
@@ -119,7 +120,6 @@ def search_places():
         for place in places_list:
             res.append(place.to_dict())
 
-    places_list = []
     for place in places_list:
         if all(amenity in place.amenities for amenity in amenities_list):
             res.append(place.to_dict())
