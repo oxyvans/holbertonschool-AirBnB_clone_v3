@@ -111,7 +111,7 @@ def search_places():
     for city in cities_list:
         places_list.append(city.places)
 
-    amenities_list = []
+    amenities_list, res = [], []
     for amenity_id in amenities:
         obj = storage.get(Amenity, amenity_id)
         if obj:
