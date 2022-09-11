@@ -98,7 +98,7 @@ def search_places():
             if v["state_id"] == state_id:
                 cities_list.append(v)
     for city in cities:
-        obj = storage.get(City, city_id)
+        obj = storage.get(City, city)
         if obj and obj.to_dict() not in cities_list:
             cities_list.append(obj.to_dict())
     places_list = []
